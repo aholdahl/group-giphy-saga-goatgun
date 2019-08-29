@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import Favorites from '../Favorites/Favorites'
+// import Search from '../Search/Search'
+import {HashRouter as Router, Route, Link} from 'react-router-dom';
 
 
 class App extends Component {
 
   render() {
     return (
+      <Router>
       <div>
+        <ul>
+          <li>
+            <Link to="/">Search</Link>
+          </li>
+          <li>
+            <Link to = "/favorites">Favorites</Link>
+          </li>
+        </ul>
         <h1>Giphy Search!</h1>
-        <Favorites />
       </div>
+      {/* <Route path="/" Component={Search} /> */}
+      <Route path="/favorites" component={Favorites}/>
+      </Router>
     );
   }
   

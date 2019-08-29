@@ -16,7 +16,19 @@ function* watcherSaga(){
   yield takeEvery('FETCH_FAVORITES', fetchFavorites)
   yield takeEvery('FETCH_CATEGORIES', fetchCategories)
   yield takeEvery('UPDATE_CATEGORY', updateCategory)
-  yield takeEvery('ADD_FAVORITE', addFavorite)
+  yield takeEvery('ADD_FAVORITE', addFavorite);
+  yield takeEvery('REMOVE_CATEGORY', removeCategory);
+}
+
+function* removeCategory(action) {
+  try {
+    yield axios.delete(`/api/category/${action.payload}`);
+    yield put({
+      type: 'FETCH_CATEGORIES'
+    })
+  } catch(error){
+    console.log('error in DELETE category', error);
+  }
 }
 
 function* updateCategory(action) {
@@ -69,16 +81,9 @@ function* fetchFavorites(action) {
   }
 }
 
-
-//Reducers
-
-
 function* addFavorite(action) {
   try {
-    axios.post('/api/favorite',{ url: action.payload});
-    // yield put({
-    //   type: 'SET_FAVORITES'
-    // })
+    yield axios.post('/api/favorite',{ url: action.payload});
   } catch(error) {
     console.log('error in add favorite', error);
   }

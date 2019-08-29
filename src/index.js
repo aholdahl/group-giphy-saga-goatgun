@@ -33,7 +33,7 @@ function* searchGiphy(action){
 
 function* addFavorite(action) {
   try {
-    axios.post('/api/favorite', action.payload);
+    axios.post('/api/favorite',{ url: action.payload});
     yield put({
       type: 'SET_FAVORITES'
     })

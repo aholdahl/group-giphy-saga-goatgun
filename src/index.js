@@ -17,7 +17,8 @@ function* watcherSaga(){
 
 function* searchGiphy(action){
   try {
-    let searchResponse = yield axios.get('/goat/search');
+    let searchQuery = action.payload
+    let searchResponse = yield axios.get(`/api/search/${searchQuery}`);
     console.log('response from API', searchResponse.data);
     yield put({
       type: 'SET_SEARCH',
@@ -31,7 +32,7 @@ function* searchGiphy(action){
 
 //Reducers
 
-searchList = (state = [], action) => {
+const searchList = (state = [], action) => {
   switch (action.type) {
     case 'SET_SEARCH':
       return action.payload;
@@ -43,7 +44,7 @@ searchList = (state = [], action) => {
 
 const store = createStore(
   combineReducers({
-
+    searchList,
   }),
   applyMiddleware(sagaMiddleWare, logger)
 )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Hashrouter as Router, Route, Link} from 'react-router-dom';
+import {HashRouter as Router, Route, Link} from 'react-router-dom';
 
 
 class App extends Component {
@@ -18,8 +18,8 @@ class App extends Component {
         </ul>
         <h1>Giphy Search!</h1>
       </div> 
-      <Route path="/" Component={Search} />
-      <Route path="/favorites" component={Favorites}/>
+      {/* <Route path="/" Component={Search} /> */}
+      {/* <Route path="/favorites" component={Favorites}/> */}
       </Router>
     );
   }

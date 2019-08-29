@@ -24,7 +24,7 @@ function* watcherSaga(){
 
 function*editGoategory(action){
   try{
-    yield axios.put(`api/category/${action.payload}`);
+    yield axios.put(`api/category/${action.payload.id}`, {name: action.payload.name});
     yield put({
       type: 'FETCH_CATEGORIES'
     })
@@ -35,7 +35,7 @@ function*editGoategory(action){
 
 function*addCategory(action){
   try{
-    yield axios.post(`api/category`, action.payload);
+    yield axios.post(`api/category`, {name: action.payload});
     yield put({
       type: 'FETCH_CATEGORIES'
     })    

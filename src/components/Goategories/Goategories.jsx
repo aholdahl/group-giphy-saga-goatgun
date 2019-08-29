@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 class Categories extends Component {
   state = {
     newCategory: '',
-    editMode: false
+    editMode: false,
+    currentId: 0
   }
 
   componentDidMount() {
@@ -30,10 +31,11 @@ class Categories extends Component {
     } else {
       this.props.dispatch({
         type: 'EDIT_GOATEGORY',
-        payload: this.state.newCategory
+        payload: {name: this.state.newCategory, id: this.state.currentId}
       })
     }
     this.setState({
+      ...this.state,
       newCategory: '',
       editMode: false
     })
@@ -41,26 +43,30 @@ class Categories extends Component {
 
   handleChange = (event) => {
     this.setState({
+      ...this.state,
       newCategory: event.target.value,
       editMode: this.state.editMode
     })
   }
 
-  handleEdit = (name) => {
+  handleEdit = (name, id) => {
     this.setState({
       newCategory: name,
-      editMode: !this.state.editMode
+      editMode: !this.state.editMode,
+      currentId: id
     })
   }
 
   exitEdit = () => {
     this.setState({
+      ...this.state,
       newCategory: '',
       editMode: false
     })
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <h1>List of Categories</h1>
@@ -73,7 +79,7 @@ class Categories extends Component {
           {this.props.reduxStore.categoryReducer.map(cat =>
             <li key={cat.id}>
               {cat.name} <span> </span> <button onClick={() => this.handleClick(cat.id)}>Delete</button>
-              <button onClick={()=>this.handleEdit(cat.name)}>Edit</button>
+              <button onClick={()=>this.handleEdit(cat.name, cat.id)}>Edit</button>
             </li>
           )}
         </ul>

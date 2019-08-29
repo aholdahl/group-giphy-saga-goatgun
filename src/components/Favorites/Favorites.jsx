@@ -34,7 +34,7 @@ class Favorites extends Component {
         console.log('clicked')
         this.props.dispatch({
             type: 'UPDATE_CATEGORY',
-            payload: {category_id: this.state.categoryId, favoriteId: id}
+            payload: {category_id: this.state.category_id, favoriteId: id}
         })
     }//end handleClick
 

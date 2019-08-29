@@ -16,4 +16,8 @@ router.get('/', (req, res) => {
         });
 });
 
+router.put('/:id', (req, res) => {
+    const queryText = ``
+}
+
 module.exports = router;

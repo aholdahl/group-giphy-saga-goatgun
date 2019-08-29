@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   let addFavorite = req.body
   let queryText = `INSERT INTO "favorite" ("url") VALUES ($1);`
-  poolquery(queryText, [addFavorite])
+  pool.query(queryText, [addFavorite])
   .then((result)=>{
     res.sendStatus(200)
   }).catch((error)=>{

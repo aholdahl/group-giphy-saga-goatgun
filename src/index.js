@@ -16,6 +16,7 @@ function* watcherSaga(){
   yield takeEvery('FETCH_FAVORITES', fetchFavorites)
   yield takeEvery('FETCH_CATEGORIES', fetchCategories)
   yield takeEvery('UPDATE_CATEGORY', updateCategory)
+  yield takeEvery('ADD_FAVORITE', addFavorite)
 }
 
 function* updateCategory(action) {
@@ -44,7 +45,8 @@ function* fetchCategories(action) {
 
 function* searchGiphy(action){
   try {
-    let searchResponse = yield axios.get('/goat/search');
+    let searchQuery = action.payload
+    let searchResponse = yield axios.get(`/api/search/${searchQuery}`);
     console.log('response from API', searchResponse.data);
     yield put({
       type: 'SET_SEARCH',
@@ -71,7 +73,21 @@ function* fetchFavorites(action) {
 
 //Reducers
 
-const searchList = (state = [], action) => {
+
+function* addFavorite(action) {
+  try {
+    axios.post('/api/favorite', action.payload);
+    // yield put({
+    //   type: 'SET_FAVORITES'
+    // })
+  } catch(error) {
+    console.log('error in add favorite', error);
+  }
+}
+
+//Reducers
+
+const searchList = (state = '', action) => {
   switch (action.type) {
     case 'SET_SEARCH':
       return action.payload;
@@ -103,7 +119,8 @@ const categoryReducer = (state = [], action) => {
 const store = createStore(
   combineReducers({
     favoritesReducer,
-    categoryReducer
+    categoryReducer,
+    searchList,
   }),
   applyMiddleware(sagaMiddleWare, logger)
 )

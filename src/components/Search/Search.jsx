@@ -27,6 +27,14 @@ this.setState({
 })
 }
 
+handleFavorite = (url) => {
+    console.log('you clicked a delete!');
+    this.props.dispatch({
+        type: 'ADD_FAVORITE',
+        payload: url
+    })
+}
+
 render(){
 
     return (
@@ -46,10 +54,10 @@ render(){
           {this.props.reduxStore.searchList !== '' &&
             this.props.reduxStore.searchList.data.map(gif => {
               return (
-                <li>
+                <li key={gif.id}>
                   {" "}
                   <img src={gif.images.downsized_medium.url} alt="gif" />{" "}
-                  <button>I LOVE IT</button>
+                  <button onClick = {()=>this.handleFavorite(gif.images.downsized_medium.url)}>I LOVE IT</button>
                 </li>
               );
             })}

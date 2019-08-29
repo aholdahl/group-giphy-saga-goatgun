@@ -58,6 +58,14 @@ class Favorites extends Component {
         })
     }//end handleClick
 
+    handleDelete = (id) => {
+        console.log('clicked')
+        this.props.dispatch({
+            type: 'REMOVE_FAVORITE',
+            payload: id
+        })
+    }//end handleDelete
+
     handleChange = (event) => {
         // let categoryId = 
         this.setState({
@@ -81,16 +89,18 @@ class Favorites extends Component {
                             <TableCell>Giphy</TableCell>
                             <TableCell>Current Category</TableCell>
                             <TableCell>Change Category</TableCell>
+                            <TableCell>Delete Favorite</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {rows.map((hearted) => {
                             return(
                             <TableRow key={hearted.id}>
-                            <TableCell component="th" scope="row"> <img src={hearted.url}/> </TableCell>
+                            <TableCell component="th" scope="row"> <img src={hearted.url} /></TableCell>
                             <TableCell> {hearted.category} </TableCell>
-                            <TableCell> <select onChange={this.handleChange}> {categoryList} </select> 
-                            <Button color="primary" className={classes.button} onClick={()=>this.handleClick(hearted.id)}>Add</Button></TableCell>
+                            <TableCell> <select onChange={this.handleChange}> {categoryList} </select>
+                            <Button variant="contained" color="secondary" className={classes.button} onClick={()=>this.handleClick(hearted.id)}>Add Category</Button></TableCell>
+                            <TableCell><Button variant="contained" color="secondary" className={classes.button} onClick={() => this.handleDelete(hearted.id)}>Remove From Favorites</Button></TableCell>
                             </TableRow>
                             )
                         })}

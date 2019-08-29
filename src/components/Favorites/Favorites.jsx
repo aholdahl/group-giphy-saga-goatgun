@@ -3,20 +3,40 @@ import './Favorites.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {connect} from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
-makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
     button: {
-        margin: theme.spaceing(1)
+        margin: theme.spacing(1)
     },
     input: {
         display: 'none',
+    },
+    root: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+        overflowX: 'auto'
+    },
+    table: {
+        minWidth: 650
     }
-}))
+}));
+
+function createData(url, current, change) {
+    return {url, current, change}
+}
+
 
 const classes = makeStyles();
 
-class Favorites extends Component {
 
+
+class Favorites extends Component {
     state = {
         category_id: 0,
     }
@@ -46,50 +66,37 @@ class Favorites extends Component {
     }//end handleChange
 
 
-
-
     render() {
         console.log(this.state);
-        let htmlToDom = this.props.reduxStore.favoritesReducer.map((hearted) => {
-            let categoryList = this.props.reduxStore.categoryReducer.map((list) => {
-                return <option key={list.id} value={list.id}>{list.name}</option>
-            })
-            return (<tr key={hearted.id}>
-                <td><img src={hearted.url}/></td>
-                <td>{hearted.category}</td>
-                <td><select onChange={this.handleChange}>{categoryList}</select>
-                    <Button color="primary" className={classes.button} onClick={()=>this.handleClick(hearted.id)}>Add</Button></td>
-            </tr>)
-
-        
+        let categoryList = this.props.reduxStore.categoryReducer.map((list) => {
+           return <option key={list.id} value={list.id}>{list.name}</option>
         })
-
+        const rows = this.props.reduxStore.favoritesReducer
         return (
         <div>
-            <header className="header">
-                <div className="search">
-                    <h3>Search</h3>
-                </div>
-                <div className="saga">
-                    <h1>Giphy Saga</h1>
-                </div>
-                <div className="favorites">
-                    <h3>FAVORITES</h3>
-                </div>
-            </header>
-                {/* <pre>{JSON.stringify(this.props.reduxStore.favoritesReducer)}</pre> */}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Giphy</th>
-                            <th>Current Category</th>
-                            <th>Change Category</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {htmlToDom}
-                    </tbody>
-                </table>
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Giphy</TableCell>
+                            <TableCell>Current Category</TableCell>
+                            <TableCell>Change Category</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map((hearted) => {
+                            return(
+                            <TableRow key={hearted.id}>
+                            <TableCell component="th" scope="row"> <img src={hearted.url}/> </TableCell>
+                            <TableCell> {hearted.category} </TableCell>
+                            <TableCell> <select onChange={this.handleChange}> {categoryList} </select> 
+                            <Button color="primary" className={classes.button} onClick={()=>this.handleClick(hearted.id)}>Add</Button></TableCell>
+                            </TableRow>
+                            )
+                        })}
+                    </TableBody>
+                </Table>
+            </Paper>
         </div>
         )
     }

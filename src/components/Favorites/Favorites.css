@@ -1,0 +1,21 @@
+.search {
+    text-align: left;
+    display: inline
+}
+
+.saga {
+    text-align: center;
+    display: inline
+}
+
+.favorites {
+    text-align: end;
+    display: inline;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-evenly;
+}

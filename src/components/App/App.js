@@ -6,6 +6,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import 'typeface-roboto';
 import { AppBar } from '@material-ui/core';
 import './App.css';
+import Categories from '../Goategories/Goategories';
 
 const theme = createMuiTheme({
   palette: {
@@ -34,11 +35,15 @@ class App extends Component {
                 <li>
                   <Link to="/favorites">Favorites</Link>
                 </li>
+                <li>
+                  <Link to="/categories">Categories</Link>
+                </li>
               </ul>
             </nav>
           </AppBar>
           <Route exact path="/" component={Search} />
           <Route path="/favorites" component={Favorites}/>
+          <Route path="/categories" component={Categories} />
         </Router>
       </MuiThemeProvider>
     );

@@ -32,7 +32,7 @@ function* searchGiphy(action){
 
 //Reducers
 
-const searchList = (state = [], action) => {
+const searchList = (state = '', action) => {
   switch (action.type) {
     case 'SET_SEARCH':
       return action.payload;

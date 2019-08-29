@@ -31,7 +31,7 @@ function* searchGiphy(action){
 
 //Reducers
 
-searchList = (state = [], action) => {
+const searchList = (state = [], action) => {
   switch (action.type) {
     case 'SET_SEARCH':
       return action.payload;
@@ -43,7 +43,7 @@ searchList = (state = [], action) => {
 
 const store = createStore(
   combineReducers({
-
+searchList,
   }),
   applyMiddleware(sagaMiddleWare, logger)
 )

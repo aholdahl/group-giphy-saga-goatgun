@@ -28,7 +28,7 @@ this.setState({
 }
 
 handleFavorite = (url) => {
-    console.log('you clicked a delete!');
+    console.log('you clicked love it!');
     this.props.dispatch({
         type: 'ADD_FAVORITE',
         payload: url

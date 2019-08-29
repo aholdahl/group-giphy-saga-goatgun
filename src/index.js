@@ -13,6 +13,33 @@ const sagaMiddleWare = createSagaMiddleWare();
 
 function* watcherSaga(){
   yield takeEvery('GET_SEARCH', searchGiphy)
+  yield takeEvery('FETCH_FAVORITES', fetchFavorites)
+  yield takeEvery('FETCH_CATEGORIES', fetchCategories)
+  yield takeEvery('UPDATE_CATEGORY', updateCategory)
+}
+
+function* updateCategory(action) {
+  try{
+    let response = yield axios.put(`/api/favorite/${action.payload.favoriteId}`, action.payload.category_id);
+    yield put ({
+      type: 'SET_FAVORITES',
+      payload: response.data
+    })
+  } catch (error){
+    console.log('error on get favorites', error)
+  }
+}//end updateCategory
+
+function* fetchCategories(action) {
+  try {
+    let response = yield axios.get('/api/category')
+    yield put ({
+      type: 'SET_CATEGORIES',
+      payload: response.data
+    })
+  }catch (error) {
+    console.log('error on get categories', error)
+  }
 }
 
 function* searchGiphy(action){
@@ -29,6 +56,19 @@ function* searchGiphy(action){
   }
 }
 
+function* fetchFavorites(action) {
+  try {
+    let response = yield axios.get('/api/favorite')
+    yield put ({
+      type: 'SET_FAVORITES',
+      payload: response.data
+    })
+  } catch (error) {
+    console.log('error in fetch favorites', error);
+  }
+}
+
+
 //Reducers
 
 const searchList = (state = [], action) => {
@@ -40,11 +80,30 @@ const searchList = (state = [], action) => {
   }
 }
 
+const favoritesReducer = (state = [], action) => {
+  switch(action.type) {
+    case 'SET_FAVORITES' :
+      return action.payload;
+    default: 
+      return state;
+  }
+}
+
+const categoryReducer = (state = [], action) => {
+  switch(action.type) {
+    case 'SET_CATEGORIES' :
+      return action.payload
+    default: 
+    return state;
+  }
+}
+
 
 
 const store = createStore(
   combineReducers({
-
+    favoritesReducer,
+    categoryReducer
   }),
   applyMiddleware(sagaMiddleWare, logger)
 )

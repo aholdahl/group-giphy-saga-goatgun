@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import './Favorites.css';
-import FavoritesItem from '../FavoritesItem/FavoritesItem'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {connect} from 'react-redux';
-
 
 makeStyles(theme => ({
     button: {
@@ -20,20 +18,50 @@ const classes = makeStyles();
 class Favorites extends Component {
 
     state = {
-        id: 1,
-        url: `https://www.pexels.com/photo/nature-red-love-romantic-67636/`,
-        category: 'goat'
+        category_id: 0,
     }
 
+    componentDidMount = () => {
+        this.props.dispatch({
+            type: 'FETCH_FAVORITES'
+        })
+        this.props.dispatch({
+            type: 'FETCH_CATEGORIES'
+        })
+    }
+
+    handleClick = (id) => {
+        console.log('clicked')
+        this.props.dispatch({
+            type: 'UPDATE_CATEGORY',
+            payload: {category_id: this.state.categoryId, favoriteId: id}
+        })
+    }//end handleClick
+
+    handleChange = (event) => {
+        // let categoryId = 
+        this.setState({
+            category_id: Number(event.target.value)
+        })
+    }//end handleChange
+
+
+
+
     render() {
-        
+        console.log(this.state);
         let htmlToDom = this.props.reduxStore.favoritesReducer.map((hearted) => {
+            let categoryList = this.props.reduxStore.categoryReducer.map((list) => {
+                return <option key={list.id} value={list.id}>{list.name}</option>
+            })
             return (<tr key={hearted.id}>
                 <td><img src={hearted.url}/></td>
                 <td>Favorited</td>
-                <td><input placeholder="category" value={hearted.category} />
-                    <Button color="primary" className={classes.button}>Add</Button></td>
+                <td><select onChange={this.handleChange}>{categoryList}</select>
+                    <Button color="primary" className={classes.button} onClick={()=>this.handleClick(hearted.id)}>Add</Button></td>
             </tr>)
+
+        
         })
 
         return (
@@ -49,7 +77,7 @@ class Favorites extends Component {
                     <h3>FAVORITES</h3>
                 </div>
             </header>
-            <FavoritesItem />
+                {/* <pre>{JSON.stringify(this.props.reduxStore.favoritesReducer)}</pre> */}
                 <table>
                     <thead>
                         <tr>

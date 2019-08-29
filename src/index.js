@@ -12,7 +12,8 @@ import axios from "axios";
 const sagaMiddleWare = createSagaMiddleWare();
 
 function* watcherSaga(){
-  yield takeEvery('GET_SEARCH', searchGiphy)
+  yield takeEvery('GET_SEARCH', searchGiphy);
+  yield takeEvery('ADD_FAVORITE', addFavorite);
 }
 
 function* searchGiphy(action){
@@ -27,6 +28,17 @@ function* searchGiphy(action){
   } catch (error){
     console.log('error in GET search', error);
     
+  }
+}
+
+function* addFavorite(action) {
+  try {
+    axios.post('/api/favorite', action.payload);
+    yield put({
+      type: 'SET_FAVORITES'
+    })
+  } catch(error) {
+    console.log('error in add favorite', error);
   }
 }
 

@@ -18,6 +18,8 @@ router.get('/', (req, res) => {
 router.put('/:id', (req, res) => {
     const queryText = `UPDATE "category" SET "name" = $2 WHERE "id"=$1;`;
     let idToUpdate = req.params.id
+    console.log(idToUpdate);
+    console.log(req.body);
     pool.query(queryText, [idToUpdate, req.body.name])
     .then((result) => {
         res.sendStatus(200);
@@ -30,7 +32,7 @@ router.put('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     console.log(req.body);
-    let categoryToAdd = req.body;
+    let categoryToAdd = req.body.name;
     const queryText = `INSERT INTO "category" ("name") VALUES ($1);`;
     
     pool.query(queryText, [categoryToAdd])

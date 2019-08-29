@@ -33,16 +33,25 @@ render(){
       <div>
         <h1>Hello from Search Component</h1>
         <form onSubmit={this.handleSubmit}>
-        <input value={this.state.newSearch}  onChange={this.handleChange} type = "text" placeholder = "Enter your search here" />
-        <button type="submit">Submit Your Search</button>
+          <input
+            value={this.state.newSearch}
+            onChange={this.handleChange}
+            type="text"
+            placeholder="Enter your search here"
+          />
+          <button type="submit">Submit Your Search</button>
         </form>
         <h1>Enjoy your GIFS below</h1>
         <ul>
-            {JSON.stringify(this.props.reduxStore.searchList)}
-            {this.props.reduxStore.searchList.map((gif) => {
-                return (
-                    <li> <img src={gif.data.images.downsized.url} alt= "gif" /> <button>I LOVE IT</button></li>
-                )
+          {this.props.reduxStore.searchList !== '' &&
+            this.props.reduxStore.searchList.data.map(gif => {
+              return (
+                <li>
+                  {" "}
+                  <img src={gif.images.downsized_medium.url} alt="gif" />{" "}
+                  <button>I LOVE IT</button>
+                </li>
+              );
             })}
         </ul>
       </div>

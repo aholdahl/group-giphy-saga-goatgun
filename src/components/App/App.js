@@ -21,8 +21,8 @@ class App extends Component {
         <h1>Giphy Search!</h1>
         <Search/>
       </div> 
-      <Route path="/" Component={Search} />
-      <Route path="/favorites" component={Favorites}/>
+      {/* <Route path="/" Component={Search} /> */}
+      {/* <Route path="/favorites" component={Favorites}/> */}
       </Router>
     );
   }

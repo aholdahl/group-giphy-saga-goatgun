@@ -56,7 +56,7 @@ class Favorites extends Component {
             })
             return (<tr key={hearted.id}>
                 <td><img src={hearted.url}/></td>
-                <td>Favorited</td>
+                <td>{hearted.category}</td>
                 <td><select onChange={this.handleChange}>{categoryList}</select>
                     <Button color="primary" className={classes.button} onClick={()=>this.handleClick(hearted.id)}>Add</Button></td>
             </tr>)
@@ -82,8 +82,8 @@ class Favorites extends Component {
                     <thead>
                         <tr>
                             <th>Giphy</th>
-                            <th>Favorited</th>
-                            <th>Category</th>
+                            <th>Current Category</th>
+                            <th>Change Category</th>
                         </tr>
                     </thead>
                     <tbody>

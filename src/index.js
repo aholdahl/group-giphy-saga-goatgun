@@ -21,10 +21,9 @@ function* watcherSaga(){
 
 function* updateCategory(action) {
   try{
-    let response = yield axios.put(`/api/favorite/${action.payload.favoriteId}`, action.payload.category_id);
+    yield axios.put(`/api/favorite/${action.payload.favoriteId}`, {id:action.payload.category_id});
     yield put ({
-      type: 'SET_FAVORITES',
-      payload: response.data
+      type: 'FETCH_FAVORITES',
     })
   } catch (error){
     console.log('error on get favorites', error)

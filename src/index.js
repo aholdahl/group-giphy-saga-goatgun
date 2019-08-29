@@ -19,6 +19,30 @@ function* watcherSaga(){
   yield takeEvery('ADD_FAVORITE', addFavorite);
   yield takeEvery('REMOVE_FAVORITE', removeFavorite);
   yield takeEvery('REMOVE_CATEGORY', removeCategory);
+  yield takeEvery('ADD_CATEGORY', addCategory)
+  yield takeEvery('EDIT_GOATEGORY', editGoategory)
+}
+
+function*editGoategory(action){
+  try{
+    yield axios.put(`api/category/${action.payload}`);
+    yield put({
+      type: 'FETCH_CATEGORIES'
+    })
+  }catch(error){
+    console.log('error in EDIT_GOATEGORY', error);
+  }
+}
+
+function*addCategory(action){
+  try{
+    yield axios.post(`api/category`, action.payload);
+    yield put({
+      type: 'FETCH_CATEGORIES'
+    })    
+  } catch (error){
+console.log('error in ADD_CATEGORY', error);
+   }
 }
 
 function* removeCategory(action) {

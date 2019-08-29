@@ -1,0 +1,15 @@
+html {
+    text-align: center;
+}
+
+.navBar ul {
+        padding: 0px;
+}
+
+.navBar li {
+    display: inline-block;
+    list-style: none;
+    color: white;
+    padding-right: 10px;
+    padding-left: 10px;
+}

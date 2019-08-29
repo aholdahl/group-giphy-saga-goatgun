@@ -98,7 +98,7 @@ class Favorites extends Component {
                             <TableRow key={hearted.id}>
                             <TableCell component="th" scope="row"> <img src={hearted.url} /></TableCell>
                             <TableCell> {hearted.category} </TableCell>
-                            <TableCell> <select onChange={this.handleChange}> {categoryList} </select>
+                            <TableCell> <select onChange={this.handleChange}> <option value=''></option>{categoryList} </select>
                             <Button variant="contained" color="secondary" className={classes.button} onClick={()=>this.handleClick(hearted.id)}>Add Category</Button></TableCell>
                             <TableCell><Button variant="contained" color="secondary" className={classes.button} onClick={() => this.handleDelete(hearted.id)}>Remove From Favorites</Button></TableCell>
                             </TableRow>

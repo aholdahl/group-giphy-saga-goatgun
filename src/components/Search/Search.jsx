@@ -18,7 +18,13 @@ handleChange = (event) => {
 handleSubmit = (event)=>{
     event.preventDefault();
 console.log('you clicked the submit');
-
+this.props.dispatch({
+    type: 'FETCH_GIFS',
+    payload: this.state.newSearch
+})
+this.setState({
+    newSearch: '',
+})
 }
 
 render(){
@@ -27,9 +33,12 @@ render(){
       <div>
         <h1>Hello from Search Component</h1>
         <form onSubmit={this.handleSubmit}>
-        <input onChange={this.handleChange} type = "text" placeholder = "Enter your search here" />
+        <input value={this.state.newSearch}  onChange={this.handleChange} type = "text" placeholder = "Enter your search here" />
         <button type="submit">Submit Your Search</button>
         </form>
+        <ul>
+            
+        </ul>
       </div>
     );
 

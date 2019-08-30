@@ -22,7 +22,7 @@ VALUES ('funny'), ('polybius'), ('cartoon'), ('nsfw'), ('meme'), ('goat');
 
 --POST for Favorite table
 INSERT INTO "favorite" ("url") 
-VALUES ('https://giphy.com/gifs/GTkhJ3Aj3p064/html5');
+VALUES ('https://media1.giphy.com/media/TaksvZ52MOGtaZ9fs6/giphy-downsized-medium.gif?cid=ad9a148173f2061a6209ae18af7d18f42e0807dc1eebdef6&rid=giphy-downsized-medium.gif');
 
 --GET for Favorite table (do not use, see below)
 --SELECT "url", "category_id" FROM "favorite" ORDER BY "id" DESC;

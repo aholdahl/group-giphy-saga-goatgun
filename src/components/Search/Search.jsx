@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 class Search extends Component{
 
@@ -37,8 +43,8 @@ handleFavorite = (url) => {
     })
 }
 
-render(){
 
+render(){
     return (
       <div>
         <h1>Hello from Search Component</h1>
@@ -52,18 +58,28 @@ render(){
           <button type="submit">Submit Your Search</button>
         </form>
         <h1>Enjoy your GIFS below</h1>
-        <ul>
+        <Paper>
+          <Table id="searchTable">
+            <TableHead>
+              <TableRow>
+                <TableCell>Giphy</TableCell>
+                <TableCell>Add to Favorites</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
           {this.props.reduxStore.searchList !== '' &&
             this.props.reduxStore.searchList.data.map(gif => {
               return (
-                <li key={gif.id}>
+                <TableRow key={gif.id}>
                   {" "}
-                  <img src={gif.images.downsized_medium.url} alt="gif" />{" "}
-                  <button onClick = {()=>this.handleFavorite(gif.images.downsized_medium.url)}>I LOVE IT</button>
-                </li>
+                  <TableCell><img src={gif.images.downsized_medium.url} alt="gif" />{" "}</TableCell>
+                  <TableCell><button onClick={() => this.handleFavorite(gif.images.downsized_medium.url)}>I LOVE IT</button></TableCell>
+                </TableRow>
               );
             })}
-        </ul>
+            </TableBody>
+          </Table>
+        </Paper>
       </div>
     );
 

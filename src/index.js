@@ -92,8 +92,8 @@ function* fetchCategories(action) {
 
 function* searchGiphy(action){
   try {
-    let searchQuery = action.payload
-    let searchResponse = yield axios.get(`/api/search/${searchQuery}`);
+    let searchQuery = action.payload.newSearch
+    let searchResponse = yield axios.get(`/api/search/${searchQuery}/${action.payload.limit}`);
     console.log('response from API', searchResponse.data);
     yield put({
       type: 'SET_SEARCH',

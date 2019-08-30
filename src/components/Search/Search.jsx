@@ -11,13 +11,15 @@ class Search extends Component{
 
 state = {
     newSearch: '',
+    limit: 50
 }
 
 handleChange = (event) => {
     console.log('you are in the input', event.target.value);
     
     this.setState({
-        newSearch: event.target.value
+      ...this.state,
+        newSearch: event.target.value,
     })
 }
 
@@ -26,7 +28,7 @@ handleSubmit = (event)=>{
 console.log('you clicked the submit');
 this.props.dispatch({
     type: 'GET_SEARCH',
-    payload: this.state.newSearch
+    payload: this.state
 })
 this.setState({
     newSearch: '',
